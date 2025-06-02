@@ -45,10 +45,13 @@
 
       const dict = {
         zh: {
-          title: "R6S 幹員選擇器 V3.",
+          title: "R6S 幹員選擇器 V4.",
           subtitle: "製作人 咖啡拉 啟發人 沐言",
           start: "🎲 開始抽選",
+          draw1: "每方抽 1 位",
+          draw2: "每方抽 2 位",
           draw3: "每方抽 3 位",
+          draw4: "每方抽 4 位",
           draw5: "每方抽 5 位",
           switch: "切換",
           light: "亮☀️",
@@ -60,13 +63,23 @@
           Pool: "選擇幹員池",
           atkPool: "🔺 攻擊方",
           defPool: "🛡️ 防守方",
-          langLabel: "語言"
+          langLabel: "語言",
+          historyTitle: "🎯 抽選紀錄 (最多 9 次)",
+          drawX: "第",
+          drawY: "次 抽選",
+          atkHistory: "攻擊幹員",
+          defHistory: "防守幹員",
+          bonusHistory: "Bonus 幹員",
+          clearHistory: "清除紀錄",
         },
         en: {
-          title: "R6S Operator Selector V3.",
+          title: "R6S Operator Selector V4.",
           subtitle: "Create by Coffeera & Metta0311",
           start: "🎲 Start Drawing",
+          draw1: "Draw 1 per side",
+          draw2: "Draw 2 per side",
           draw3: "Draw 3 per side",
+          draw4: "Draw 4 per side",
           draw5: "Draw 5 per side",
           switch: "change",
           light: "light☀️",
@@ -78,7 +91,14 @@
           Pool: "Choose Operators Pool",
           atkPool: "🔺 Attacker",
           defPool: "🛡️ Defender",
-          langLabel: "Language"
+          langLabel: "Language",
+          historyTitle: "🎯 Draw History (up to 9)",
+          drawX: "Draw #",
+          drawY: "",
+          atkHistory: "Attackers",
+          defHistory: "Defenders",
+          bonusHistory: "Bonus",
+          clearHistory: "Clear History",
         }
       };
       const text = dict[lang];
@@ -88,6 +108,8 @@
       const [results, setResults] = React.useState({ atk: [], def: [], bonus: [] });
       const [theme, setTheme] = React.useState("dark");
       const [drawCount, setDrawCount] = React.useState(3);
+      const [history, setHistory] = React.useState([]);
+      const clearHistory = () => setHistory([]);
 
       React.useEffect(() => {
         document.body.className = theme;
@@ -99,7 +121,9 @@
         const atk = getRandom(atkPool, drawCount);
         const def = getRandom(defPool, drawCount);
         const bonus = [getRandom(atkPool, 1)[0], getRandom(defPool, 1)[0]];
-        setResults({ atk, def, bonus });
+        const result = { atk, def, bonus };
+        setResults(result);
+        setHistory(h => [result, ...h].slice(0, 9));
       };
 
       const toggleSelect = (pool, setPool, name) => {
@@ -123,7 +147,49 @@
         </div>
       );
 
-      const renderResults = (label, ops) => (
+      
+      const renderHistory = () => (
+        <div style={{ marginTop: "2rem" }}>
+          <h3>{text.historyTitle}</h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
+            {history.map((res, index) => (
+              <div key={index} style={{ border: "1px solid #888", padding: "0.75rem", borderRadius: "8px", background: theme === "dark" ? "#222" : "#f9f9f9" }}>
+                <div style={{ fontWeight: "bold", marginBottom: "0.5rem" }}>{text.drawX} {index + 1} {text.drawY}</div>
+                <div style={{ marginBottom: "0.3rem", fontWeight: "bold" }}>{text.atkHistory}</div>
+                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
+                  {res.atk.map(op => (
+                    <div className="operator" key={op}>
+                      <img src={operatorIcons[op]} alt={op} />
+                      <span>{op}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ marginBottom: "0.3rem", fontWeight: "bold" }}>{text.defHistory}</div>
+                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
+                  {res.def.map(op => (
+                    <div className="operator" key={op}>
+                      <img src={operatorIcons[op]} alt={op} />
+                      <span>{op}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ marginBottom: "0.3rem", fontWeight: "bold" }}>{text.bonusHistory}</div>
+                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                  {res.bonus.map(op => (
+                    <div className="operator" key={op}>
+                      <img src={operatorIcons[op]} alt={op} />
+                      <span>{op}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+
+
+const renderResults = (label, ops) => (
         <div>
           <h3>{label}</h3>
           <div className="result">
@@ -152,7 +218,10 @@
           <div className="controls">
             <button className="button" onClick={roll}>{text.start}</button>
             <select className="select" value={drawCount} onChange={e => setDrawCount(parseInt(e.target.value))}>
+              <option value={1}>{text.draw1}</option>
+              <option value={2}>{text.draw2}</option>
               <option value={3}>{text.draw3}</option>
+              <option value={4}>{text.draw4}</option>
               <option value={5}>{text.draw5}</option>
             </select>
             <button className="button" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
@@ -165,6 +234,10 @@
            <div className="sstitle">{text.Pool}</div>
           {renderSelector(text.atkPool, attackers, atkPool, setAtkPool)}
           {renderSelector(text.defPool, defenders, defPool, setDefPool)}
+          {renderHistory()}
+          <div style={{ marginTop: "1rem" }}>
+            <button className="button" onClick={clearHistory}>{text.clearHistory}</button>
+          </div>
         </div>
       );
     }
