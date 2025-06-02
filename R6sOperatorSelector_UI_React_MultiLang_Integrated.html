@@ -45,8 +45,39 @@
 
       
       const dict = {
+  "jp": {
+    "title": "R6Sオペレーターセレクター V4.3",
+    "subtitle": "製作：コーヒーラ、発想：ムーヤン",
+    "start": "🎲 抽選を開始",
+    "draw1": "各チーム1人ずつ抽選",
+    "draw2": "各チーム2人ずつ抽選",
+    "draw3": "各チーム3人ずつ抽選",
+    "draw4": "各チーム4人ずつ抽選",
+    "draw5": "各チーム5人ずつ抽選",
+    "switch": "切替",
+    "light": "明るい☀️",
+    "dark": "暗い🌙",
+    "theme": "テーマ",
+    "atk": "🔺 攻撃側",
+    "def": "🛡️ 防衛側",
+    "bonus": "🎁 ボーナス",
+    "Pool": "オペレーター選択",
+    "atkPool": "🔺 攻撃チーム",
+    "defPool": "🛡️ 防衛チーム",
+    "langLabel": "言語",
+    "historyTitle": "🎯 抽選履歴（最大9回）",
+    "drawX": "第",
+    "drawY": "回の抽選",
+    "atkHistory": "攻撃オペレーター",
+    "defHistory": "防衛オペレーター",
+    "bonusHistory": "ボーナスオペレーター",
+    "clearHistory": "履歴を消去",
+    "bonusOn": "🎁 ボーナス抽選：オン",
+    "bonusOff": "❌ ボーナス抽選：オフ"
+  },
+
         zh: {
-          title: "R6S 幹員選擇器 V4.2",
+          title: "R6S 幹員選擇器 V4.3",
           subtitle: "製作人 咖啡拉 啟發人 沐言",
           start: "🎲 開始抽選",
           draw1: "每方抽 1 位",
@@ -76,7 +107,7 @@
           bonusOff: "❌ Bonus：關"
         },
         en: {
-          title: "R6S Operator Selector V4.2",
+          title: "R6S Operator Selector V4.3",
           subtitle: "Create by Coffeera & Metta0311",
           start: "🎲 Start Drawing",
           draw1: "Draw 1 per side",
@@ -219,7 +250,8 @@ const renderResults = (label, ops) => (
             <select className="select" value={lang} onChange={e => setLang(e.target.value)}>
               <option value="zh">繁體中文</option>
               <option value="en">English</option>
-            </select>
+              <option value="jp">日本語</option>
+</select>
           </div>
 
           
