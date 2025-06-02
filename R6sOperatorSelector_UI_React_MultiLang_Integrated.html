@@ -43,9 +43,10 @@
     function App() {
       const [lang, setLang] = React.useState("en");
 
+      
       const dict = {
         zh: {
-          title: "R6S 幹員選擇器 V4.",
+          title: "R6S 幹員選擇器 V4.2",
           subtitle: "製作人 咖啡拉 啟發人 沐言",
           start: "🎲 開始抽選",
           draw1: "每方抽 1 位",
@@ -71,9 +72,11 @@
           defHistory: "防守幹員",
           bonusHistory: "Bonus 幹員",
           clearHistory: "清除紀錄",
+          bonusOn: "🎁 Bonus：開",
+          bonusOff: "❌ Bonus：關"
         },
         en: {
-          title: "R6S Operator Selector V4.",
+          title: "R6S Operator Selector V4.2",
           subtitle: "Create by Coffeera & Metta0311",
           start: "🎲 Start Drawing",
           draw1: "Draw 1 per side",
@@ -99,14 +102,18 @@
           defHistory: "Defenders",
           bonusHistory: "Bonus",
           clearHistory: "Clear History",
+          bonusOn: "🎁 Bonus ON",
+          bonusOff: "❌ Bonus OFF"
         }
       };
+
       const text = dict[lang];
 
       const [atkPool, setAtkPool] = React.useState(attackers);
       const [defPool, setDefPool] = React.useState(defenders);
       const [results, setResults] = React.useState({ atk: [], def: [], bonus: [] });
       const [theme, setTheme] = React.useState("dark");
+      const [includeBonus, setIncludeBonus] = React.useState(true);
       const [drawCount, setDrawCount] = React.useState(3);
       const [history, setHistory] = React.useState([]);
       const clearHistory = () => setHistory([]);
@@ -120,7 +127,7 @@
       const roll = () => {
         const atk = getRandom(atkPool, drawCount);
         const def = getRandom(defPool, drawCount);
-        const bonus = [getRandom(atkPool, 1)[0], getRandom(defPool, 1)[0]];
+        const bonus = includeBonus ? [getRandom(atkPool, 1)[0], getRandom(defPool, 1)[0]] : [];
         const result = { atk, def, bonus };
         setResults(result);
         setHistory(h => [...h, result].slice(-9));
@@ -215,8 +222,14 @@ const renderResults = (label, ops) => (
             </select>
           </div>
 
-          <div className="controls">
-            <button className="button" onClick={roll}>{text.start}</button>
+          
+<div className="controls">
+            
+
+<button className="button" onClick={roll}>{text.start}</button>
+            <button className="button" onClick={() => setIncludeBonus(!includeBonus)}>
+  {includeBonus ? text.bonusOn : text.bonusOff}
+</button>
             <select className="select" value={drawCount} onChange={e => setDrawCount(parseInt(e.target.value))}>
               <option value={1}>{text.draw1}</option>
               <option value={2}>{text.draw2}</option>
@@ -230,7 +243,7 @@ const renderResults = (label, ops) => (
           </div>
           {renderResults(text.atk, results.atk)}
           {renderResults(text.def, results.def)}
-          {renderResults(text.bonus, results.bonus)}
+          {includeBonus && renderResults(text.bonus, results.bonus)}
            <div className="sstitle">{text.Pool}</div>
           {renderSelector(text.atkPool, attackers, atkPool, setAtkPool)}
           {renderSelector(text.defPool, defenders, defPool, setDefPool)}
