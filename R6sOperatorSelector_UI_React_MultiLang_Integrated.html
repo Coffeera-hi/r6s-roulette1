@@ -33,12 +33,12 @@
   <div id="root"></div>
   <script type="text/babel">
     const operatorIcons = {};
-    const operatorList = ['ace', 'amaru', 'ash', 'blackbeard', 'blitz', 'brava', 'buck', 'capitao', 'dokkaebi', 'finka', 'flores', 'fuze', 'glaz', 'grim', 'gridlock', 'hibana', 'iana', 'iq', 'jackal', 'kali', 'lion', 'maverick', 'montagne', 'nokk', 'nomad', 'osa', 'ram', 'sens', 'sledge', 'thatcher', 'thermite', 'twitch', 'ying', 'zero', 'zofia', 'rauora', 'deimos', 'striker', 'alibi', 'aruni', 'azami', 'bandit', 'castle', 'caveira', 'clash', 'doc', 'echo', 'ela', 'fenrir', 'frost', 'goyo', 'jager', 'kaid', 'kapkan', 'lesion', 'maestro', 'melusi', 'mira', 'mozzie', 'mute', 'oryx', 'pulse', 'rook', 'smoke', 'solis', 'tachanka', 'thorn', 'thunderbird', 'valkyrie', 'vigil', 'wamai', 'warden', 'tubarao', 'skopos', 'sentry'];
+    const operatorList = ['ace', 'amaru', 'ash', 'blackbeard', 'blitz', 'brava', 'buck', 'capitao', 'dokkaebi', 'finka', 'flores', 'fuze', 'glaz', 'grim', 'gridlock', 'hibana', 'iana', 'iq', 'jackal', 'kali', 'lion', 'maverick', 'montagne', 'nokk', 'nomad', 'osa', 'ram', 'sens', 'sledge', 'thatcher', 'thermite', 'twitch', 'ying', 'zero', 'zofia', 'rauora', 'deimos', 'striker', 'alibi', 'aruni', 'azami', 'bandit', 'castle', 'caveira', 'clash', 'doc', 'echo', 'ela', 'fenrir', 'frost', 'goyo', 'jager', 'kaid', 'kapkan', 'lesion', 'maestro', 'melusi', 'mira', 'mozzie', 'mute', 'oryx', 'pulse', 'rook', 'smoke', 'solis', 'tachanka', 'thorn', 'thunderbird', 'valkyrie', 'vigil', 'wamai', 'warden', 'tubarao', 'skopos', 'sentry', 'denari'];
     operatorList.forEach(name => {
       operatorIcons[name] = `https://r6operators.marcopixel.eu/icons/svg/${name}.svg`;
     });
     const attackers = ['ace', 'amaru', 'ash', 'blackbeard', 'blitz', 'brava', 'buck', 'capitao', 'dokkaebi', 'finka', 'flores', 'fuze', 'glaz', 'grim', 'gridlock', 'hibana', 'iana', 'iq', 'jackal', 'kali', 'lion', 'maverick', 'montagne', 'nokk', 'nomad', 'osa', 'ram', 'sens', 'sledge', 'thatcher', 'thermite', 'twitch', 'ying', 'zero', 'zofia', 'rauora', 'deimos', 'striker'];
-    const defenders = ['alibi', 'aruni', 'azami', 'bandit', 'castle', 'caveira', 'clash', 'doc', 'echo', 'ela', 'fenrir', 'frost', 'goyo', 'jager', 'kaid', 'kapkan', 'lesion', 'maestro', 'melusi', 'mira', 'mozzie', 'mute', 'oryx', 'pulse', 'rook', 'smoke', 'solis', 'tachanka', 'thorn', 'thunderbird', 'valkyrie', 'vigil', 'wamai', 'warden', 'tubarao', 'skopos', 'sentry'];
+    const defenders = ['alibi', 'aruni', 'azami', 'bandit', 'castle', 'caveira', 'clash', 'doc', 'echo', 'ela', 'fenrir', 'frost', 'goyo', 'jager', 'kaid', 'kapkan', 'lesion', 'maestro', 'melusi', 'mira', 'mozzie', 'mute', 'oryx', 'pulse', 'rook', 'smoke', 'solis', 'tachanka', 'thorn', 'thunderbird', 'valkyrie', 'vigil', 'wamai', 'warden', 'tubarao', 'skopos', 'denari', 'sentry'];
 
     function App() {
       const [lang, setLang] = React.useState("en");
